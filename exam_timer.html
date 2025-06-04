@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Time Left Until the Exam</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #80deea);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #006064;
+      margin-bottom: 30px;
+    }
+
+    .countdown-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .time-box {
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px 30px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .number {
+      font-size: 2.5em;
+      color: #00796b;
+    }
+
+    .label {
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    .motivator {
+      margin-top: 40px;
+      font-size: 1.2em;
+      color: #004d40;
+      text-align: center;
+      height: 1.4em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Time Left Until the Exam</h1>
+  <div class="countdown-container">
+    <div class="time-box">
+      <div class="number" id="days">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="hours">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="minutes">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="seconds">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+
+  <div class="motivator" id="motivator">
+    You can do it! Every second counts 💪
+  </div>
+
+  <script>
+    const examDate = new Date("2025-07-13T10:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = examDate - now;
+
+      if (diff <= 0) {
+        document.querySelector(".countdown-container").innerHTML = "<h2>The exam has started!</h2>";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Motivational quotes rotation
+    const quotes = [
+      "You can do it! Every second counts 💪",
+      "One step at a time, you're getting closer.",
+      "Don't give up — you're almost there!",
+      "Stay focused — your goal is near!",
+      "Push harder. Your future starts now!"
+    ];
+
+    let quoteIndex = 0;
+    function rotateQuote() {
+      const motivator = document.getElementById("motivator");
+      motivator.textContent = quotes[quoteIndex];
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+    }
+
+    setInterval(rotateQuote, 5000); // Every 5 seconds
+  </script>
+</body>
+</html>
